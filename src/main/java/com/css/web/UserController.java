@@ -3,6 +3,7 @@ package com.css.web;
 import com.css.model.User;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult result) {
+    public String addUser(@RequestBody @Valid User user, BindingResult result) {
 
         for (ObjectError error : result.getAllErrors()) {
             return error.toString();
