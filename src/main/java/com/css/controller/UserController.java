@@ -1,12 +1,12 @@
-package com.css.web;
+package com.css.controller;
 
+import com.css.common.ResultVO;
 import com.css.model.User;
+import com.css.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -25,17 +25,34 @@ import javax.validation.Valid;
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(@RequestBody @Valid User user, BindingResult result) {
-
         for (ObjectError error : result.getAllErrors()) {
-            return error.toString();
+            return error.getDefaultMessage();
         }
-        return "success:"+user.getName();
+        return userService.saveUser(user);
+    }
 
+    @PostMapping(value = "/addUser2")
+    public String addUser2(@RequestBody @Valid User user) {
+        return userService.saveUser(user);
+    }
+
+    @PostMapping(value = "/addUser3")
+    public ResultVO<User> addUser3(@RequestBody @Valid User user) {
+        userService.saveUser(user);
+        return new ResultVO<>(user);
+    }
+
+    @PostMapping(value = "/addUser5")
+    public User addUser5(@RequestBody @Valid User user) {
+        userService.saveUser(user);
+        return user;
     }
 }

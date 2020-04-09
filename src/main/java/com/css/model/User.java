@@ -3,7 +3,11 @@ package com.css.model;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -23,13 +27,12 @@ import javax.validation.constraints.Size;
  */
 @Data
 public class User {
-
-
     @NotNull(message = "id不能为空")
     private int id;
-    @NotNull(message = "name不能为空")
-    @Size(min = 6,max = 12,message = "name的长度必须为6-12")
+    @NotBlank(message = "name不能为空")
+    @Length(min = 6,max = 12,message = "name的长度必须为6-12")
     private String name;
+    @Range(min=10,max = 100,message = "年龄必须在10-100岁")
     private String age;
     private String address;
 
