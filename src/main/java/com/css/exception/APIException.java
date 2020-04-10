@@ -1,5 +1,6 @@
 package com.css.exception;
 
+import com.css.common.ExceptionCode;
 import lombok.Data;
 import lombok.Getter;
 
@@ -24,11 +25,11 @@ public class APIException extends RuntimeException {
     private String msg;
 
     public APIException() {
-        this(20001, "接口异常。。。");
+        this(20001, "系统错误。。。");
     }
 
-    public APIException(String message) {
-        this(20001, message);
+    public APIException(ExceptionCode exceptionCode) {
+        this(exceptionCode.getCode(), exceptionCode.getMessage());
     }
 
     public APIException(int code, String msg) {

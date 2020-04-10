@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/addUser3")
-    public ResultVO<User> addUser3(@RequestBody @Valid User user) {
+    public ResultVO addUser3(@RequestBody @Valid User user) {
         userService.saveUser(user);
         return new ResultVO<>(user);
     }

@@ -1,10 +1,6 @@
-package com.css.service.impl;
+package com.css.common;
 
-import com.css.common.ExceptionCode;
-import com.css.exception.APIException;
-import com.css.model.User;
-import com.css.service.UserService;
-import org.springframework.stereotype.Service;
+import lombok.Getter;
 
 /**
  * @author 周海峰
@@ -20,13 +16,23 @@ import org.springframework.stereotype.Service;
  * @reviewer 审核人
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
-@Service
-public class UserServiceImpl implements UserService {
-    @Override
-    public String saveUser(User user) {
-        if(user.getName().equals("javazhou")){
-            throw new APIException(ExceptionCode.USER_EXISTS);
-        }
-        return "success:" + user;
+@Getter
+public enum ExceptionCode {
+    USER_EXISTS(20001, "用户名已经存在。。。"),
+
+    USES_STATUS(20002, "用户已发起订单，不能删除。。。");
+
+    private Integer code;
+    private String message;
+
+    ExceptionCode() {
+        this(20000, "系统访问异常。。。");
     }
+
+    ExceptionCode(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.css.config;
 
+import com.css.common.ExceptionCode;
 import com.css.common.ResultVO;
+import com.css.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
@@ -52,6 +54,7 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
                 return objectMapper.writeValueAsString(new ResultVO<>(o));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
+                throw new APIException();
             }
         }
         // 将原本的数据包装在ResultVO里
