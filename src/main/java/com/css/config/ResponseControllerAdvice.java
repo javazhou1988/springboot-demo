@@ -51,6 +51,10 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 // 将数据包装在ResultVO里后，再转换为json字符串响应给前端
+                //beforeBodyWrite方法里包装数据无法对String类型的数据直接进行强转，
+                // 所以要进行特殊处理，这里不讲过多的细节，有兴趣可以自行深入了解。
+                // beforeBodyWrite方法里包装数据无法对String类型的数据直接进行强转，
+                // 所以要进行特殊处理，这里不讲过多的细节，有兴趣可以自行深入了解。
                 return objectMapper.writeValueAsString(new ResultVO<>(o));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
