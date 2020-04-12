@@ -1,8 +1,6 @@
 package com.css.common;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 
 /**
  * @author 周海峰
@@ -22,16 +20,82 @@ import lombok.ToString;
 public class ResultVO<T> {
 
     private Integer code;
-    private String msg;
+    private String message;
     private T data;
 
+
     public ResultVO(T data) {
-        this(ResultCode.SUCCESS, data);
+        this(ResultEnumCode.SUCCESS, data);
     }
 
-    public ResultVO(ResultCode resultCode, T data) {
-        this.code = resultCode.getCode();
-        this.msg = resultCode.getMsg();
+    public ResultVO(ResultEnumCode resultCode) {
+        this(resultCode, null);
+    }
+
+    public ResultVO(ResultEnumCode resultCode, T data) {
+        this(resultCode.getCode(), resultCode.getMessage(), data);
+    }
+
+    public ResultVO(Integer code, String message) {
+        this(code, message, null);
+    }
+
+    public ResultVO(Integer code, String message, T data) {
+        this.code = code;
+        this.message = message;
         this.data = data;
+    }
+
+    /**
+     * 方式2：
+     * 私有构造方法，采用静态方法去生成ResultVO对象
+     *
+     * @return
+     */
+
+    private ResultVO() {
+    }
+
+
+    public static ResultVO successResultVO() {
+        ResultVO vo = new ResultVO();
+        vo.setCode(ResultEnumCode.SUCCESS.getCode());
+        vo.setMessage(ResultEnumCode.SUCCESS.getMessage());
+        return vo;
+    }
+
+    public static ResultVO errorResultVO() {
+        ResultVO vo = new ResultVO();
+        vo.setCode(ResultEnumCode.FAILED.getCode());
+        vo.setMessage(ResultEnumCode.FAILED.getMessage());
+        return vo;
+    }
+
+    public static ResultVO getReusltVO(ResultEnumCode code) {
+        ResultVO vo = new ResultVO();
+        vo.setCode(code.getCode());
+        vo.setMessage(code.getMessage());
+        return vo;
+    }
+
+    /**
+     * 封装所有的属性对应的set方法，实现链式编程，设置多个属性
+     *
+     * @param code
+     * @return
+     */
+    public ResultVO addCode(Integer code) {
+        this.setCode(code);
+        return this;
+    }
+
+    public ResultVO addMessage(String msg) {
+        this.setMessage(msg);
+        return this;
+    }
+
+    public ResultVO addData(T data) {
+        this.setData(data);
+        return this;
     }
 }

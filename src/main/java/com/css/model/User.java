@@ -1,5 +1,6 @@
 package com.css.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,21 +27,14 @@ import javax.validation.constraints.Size;
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
 @Data
+@AllArgsConstructor
 public class User {
     @NotNull(message = "id不能为空")
     private int id;
     @NotBlank(message = "name不能为空")
-    @Length(min = 6,max = 12,message = "name的长度必须为6-12")
+    @Length(min = 6, max = 12, message = "name的长度必须为6-12")
     private String name;
-    @Range(min=10,max = 100,message = "年龄必须在10-100岁")
-    private String age;
+    @Range(min = 10, max = 100, message = "年龄必须在10-100岁")
+    private int age;
     private String address;
-
-
-    public User(int id, String name, String age, String address) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.address = address;
-    }
 }

@@ -1,11 +1,9 @@
 package com.css.config;
 
-import com.css.common.ExceptionCode;
 import com.css.common.ResultVO;
 import com.css.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -58,7 +56,7 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
                 return objectMapper.writeValueAsString(new ResultVO<>(o));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
-                throw new APIException();
+                throw new APIException(10000, e.getMessage());
             }
         }
         // 将原本的数据包装在ResultVO里

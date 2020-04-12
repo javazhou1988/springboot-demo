@@ -1,8 +1,7 @@
 package com.css.exception;
 
-import com.css.common.ExceptionCode;
+import com.css.common.ResultEnumCode;
 import lombok.Data;
-import lombok.Getter;
 
 /**
  * @author 周海峰
@@ -22,18 +21,13 @@ import lombok.Getter;
 public class APIException extends RuntimeException {
 
     private int code;
-    private String msg;
 
-    public APIException() {
-        this(20001, "系统错误。。。");
-    }
-
-    public APIException(ExceptionCode exceptionCode) {
+    public APIException(ResultEnumCode exceptionCode) {
         this(exceptionCode.getCode(), exceptionCode.getMessage());
     }
 
-    public APIException(int code, String msg) {
+    public APIException(int code, String message) {
+        super(message);
         this.code = code;
-        this.msg = msg;
     }
 }

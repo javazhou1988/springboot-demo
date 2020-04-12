@@ -2,6 +2,8 @@ package com.css.service;
 
 import com.css.model.User;
 
+import java.util.List;
+
 /**
  * @author 周海峰
  * @version 1.0
@@ -19,5 +21,7 @@ import com.css.model.User;
 public interface UserService {
 
     String saveUser(User user);
+
+    List<User> searchAllUser();
 
 }

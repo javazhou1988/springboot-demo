@@ -1,0 +1,7 @@
+1.responsebody注解入参，理解其他方式
+2.ControllerAdvice和RestControllerAdvice，注解的类中用于定义的
+@ExceptionHandler，@Binditter，@ModelAttrite 方法，
+适用于限定范围下（默认包括所有控制器，可以通过basescanpackage，value，
+annotations，basescanClass等方式
+指定控制器范围）所有控制器中@RequestMapping修饰的方式。
+3.梳理统一（全局）异常，统一响应数据格式，统一日志输出。深入研究demo

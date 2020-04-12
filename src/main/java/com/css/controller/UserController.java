@@ -9,6 +9,9 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 周海峰
@@ -54,5 +57,26 @@ public class UserController {
     public User addUser5(@RequestBody @Valid User user) {
         userService.saveUser(user);
         return user;
+    }
+
+    @GetMapping(value = "/searchAllUser")
+    public List<User> searchAllUser() {
+        /**
+         * 采用通用的拦截器返回统一响应格式
+         */
+        return userService.searchAllUser();
+    }
+
+    @GetMapping(value = "/searchAllUser2")
+    public ResultVO searchAlluser2() {
+        //自定义返回标准统一格式，统一拦截器不会再处理
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("totalCount", 1000);
+        resultMap.put("pages", 88);
+        resultMap.put("list", userService.searchAllUser());
+
+        ResultVO resultVO = new ResultVO(resultMap);
+
+        return resultVO;
     }
 }

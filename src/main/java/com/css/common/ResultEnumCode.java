@@ -1,6 +1,5 @@
 package com.css.common;
 
-import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -18,20 +17,24 @@ import lombok.Getter;
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
 @Getter
-public enum ResultCode {
+public enum ResultEnumCode {
 
     SUCCESS(10000, "操作成功"),
-    FAILED(10001, "响应失败"),
+    FAILED(10001, "返回失败"),
     VALID_ERROR(10002, "参数校验错误"),
-    ERROR(50000, "返回未知错误");
+
+    USER_EXISTS(20001, "用户名已经存在。。。"),
+    USES_STATUS(20002, "用户已发起订单，不能删除。。。"),
+
+
+    NPE_ERROR(50000, "空指针异常"),
+    ERROR(50001, "系统未知错误"),
+    ARITHME_ERROR(500002, "算法相除错误");
 
     private Integer code;
-    private String msg;
+    private String message;
 
-    ResultCode(Integer code, String msg) {
+    ResultEnumCode(Integer code, String message) {
         this.code = code;
-        this.msg = msg;
-    }
-
-
-}
+        this.message = message;
+    }}

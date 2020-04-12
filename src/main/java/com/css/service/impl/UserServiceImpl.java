@@ -1,10 +1,13 @@
 package com.css.service.impl;
 
-import com.css.common.ExceptionCode;
+import com.css.common.ResultEnumCode;
 import com.css.exception.APIException;
 import com.css.model.User;
 import com.css.service.UserService;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author 周海峰
@@ -24,9 +27,22 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Override
     public String saveUser(User user) {
-        if(user.getName().equals("javazhou")){
-            throw new APIException(ExceptionCode.USER_EXISTS);
+        if (user.getName().equals("javazhou")) {
+            throw new APIException(ResultEnumCode.USER_EXISTS);
         }
+        User user2 = null;
+        int length = user2.getAge();
         return "success:" + user;
     }
+
+    @Override
+    public List<User> searchAllUser() {
+        List<User> list = new ArrayList<>();
+        list.add(new User(1001, "javazhou", 31, "湖北"));
+        list.add(new User(1002, "wanxiao", 18, "深圳"));
+        list.add(new User(1003, "zhouxinran", 2, "深圳"));
+        return list;
+    }
+
+
 }
