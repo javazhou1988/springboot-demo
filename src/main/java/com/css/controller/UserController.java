@@ -4,6 +4,7 @@ import com.css.common.ResultVO;
 import com.css.model.User;
 import com.css.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class UserController {
     private UserService userService;
 
 
-    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST,name= MediaType.APPLICATION_JSON_VALUE)
     public String addUser(@RequestBody @Valid User user, BindingResult result) {
         for (ObjectError error : result.getAllErrors()) {
             return error.getDefaultMessage();

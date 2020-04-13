@@ -26,7 +26,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Override
-    public String saveUser(User user) {
+    public String saveUser(User user) throws RuntimeException {
         if (user.getName().equals("javazhou")) {
             throw new APIException(ResultEnumCode.USER_EXISTS);
         }

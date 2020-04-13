@@ -20,7 +20,7 @@ import lombok.Getter;
 public enum ResultEnumCode {
 
     SUCCESS(10000, "操作成功"),
-    FAILED(10001, "返回失败"),
+    FAILED(10001, "操作失败"),
     VALID_ERROR(10002, "参数校验错误"),
 
     USER_EXISTS(20001, "用户名已经存在。。。"),
@@ -28,8 +28,11 @@ public enum ResultEnumCode {
 
 
     NPE_ERROR(50000, "空指针异常"),
-    ERROR(50001, "系统未知错误"),
-    ARITHME_ERROR(500002, "算法相除错误");
+    ARITHME_ERROR(50001, "算数算法异常"),
+    ILLEGALE_ERROR(50001, "参数转换不合法"),
+
+
+    ERROR(99999, "系统未知错误");
 
     private Integer code;
     private String message;

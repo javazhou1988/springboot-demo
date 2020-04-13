@@ -2,6 +2,7 @@ package com.css.exception;
 
 import com.css.common.ResultEnumCode;
 import com.css.common.ResultVO;
+import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,16 +46,39 @@ public class GlobalExceptionHandler {
 
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+
+    /**
+     * 定义map，存贮常见错误信息。该类map不可修改
+     */
+    private static ImmutableMap<Class<? extends Throwable>, ResultEnumCode> exceptionMap;
+    // 构建ImmutableMap
+    protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultEnumCode> builder = ImmutableMap.builder();
+
+    static {
+        builder.put(NullPointerException.class, ResultEnumCode.NPE_ERROR);
+        builder.put(ArithmeticException.class, ResultEnumCode.ARITHME_ERROR);
+        builder.put(IllegalArgumentException.class, ResultEnumCode.ILLEGALE_ERROR);
+    }
+
     //通用异常
     @ExceptionHandler({Exception.class})
     public ResultVO exceptionHandler(Exception e) {
         e.printStackTrace();//记录日志
         logger.info(e.getMessage(), e.getStackTrace());
-        return new ResultVO<>(ResultEnumCode.ERROR);
+        if (null == exceptionMap) {
+            exceptionMap = builder.build();
+        }
+
+        ResultEnumCode code = exceptionMap.get(e.getClass());
+        if (null != code) {
+            return new ResultVO<>(code);
+        } else {
+            return new ResultVO<>(ResultEnumCode.ERROR);
+        }
     }
 
     //指定异常
-    @ExceptionHandler({NullPointerException.class})
+    /*@ExceptionHandler({NullPointerException.class})
     public ResultVO nullPointerExceptionHandler(NullPointerException e) {
         e.printStackTrace();//记录日志
         return new ResultVO<>(ResultEnumCode.NPE_ERROR);
@@ -64,7 +88,7 @@ public class GlobalExceptionHandler {
     public ResultVO arithmeticExceptionHandler(ArithmeticException e) {
         e.printStackTrace();
         return new ResultVO(ResultEnumCode.ARITHME_ERROR);
-    }
+    }*/
 
     //指定异常，同时需要返回具体的数据信息data
     @ExceptionHandler({MethodArgumentNotValidException.class})

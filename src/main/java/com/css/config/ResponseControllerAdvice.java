@@ -1,5 +1,6 @@
 package com.css.config;
 
+import com.css.common.ResultEnumCode;
 import com.css.common.ResultVO;
 import com.css.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -56,7 +57,7 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
                 return objectMapper.writeValueAsString(new ResultVO<>(o));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
-                throw new APIException(10000, e.getMessage());
+                throw new APIException(ResultEnumCode.ERROR);
             }
         }
         // 将原本的数据包装在ResultVO里
