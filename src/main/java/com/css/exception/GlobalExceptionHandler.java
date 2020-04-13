@@ -43,16 +43,14 @@ import java.util.List;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
-
     private static Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-
 
     /**
      * 定义map，存贮常见错误信息。该类map不可修改
      */
-    private static ImmutableMap<Class<? extends Throwable>, ResultEnumCode> exceptionMap;
+    private static ImmutableMap<Class<? extends Throwable>, ResultEnumCode> exceptionImmutableMap;
     // 构建ImmutableMap
-    protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultEnumCode> builder = ImmutableMap.builder();
+    private static ImmutableMap.Builder<Class<? extends Throwable>, ResultEnumCode> builder = ImmutableMap.builder();
 
     static {
         builder.put(NullPointerException.class, ResultEnumCode.NPE_ERROR);
@@ -65,11 +63,11 @@ public class GlobalExceptionHandler {
     public ResultVO exceptionHandler(Exception e) {
         e.printStackTrace();//记录日志
         logger.info(e.getMessage(), e.getStackTrace());
-        if (null == exceptionMap) {
-            exceptionMap = builder.build();
+        if (null == exceptionImmutableMap) {
+            exceptionImmutableMap = builder.build();
         }
 
-        ResultEnumCode code = exceptionMap.get(e.getClass());
+        ResultEnumCode code = exceptionImmutableMap.get(e.getClass());
         if (null != code) {
             return new ResultVO<>(code);
         } else {
