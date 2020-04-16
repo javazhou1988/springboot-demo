@@ -7,10 +7,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 /**
  * @author 周海峰
@@ -30,6 +27,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class User {
     @NotNull(message = "id不能为空")
+    @Email
     private int id;
     @NotBlank(message = "name不能为空")
     @Length(min = 6, max = 12, message = "name的长度必须为6-12")

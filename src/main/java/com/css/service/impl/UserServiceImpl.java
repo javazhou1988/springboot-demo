@@ -4,6 +4,7 @@ import com.css.common.ResultEnumCode;
 import com.css.exception.APIException;
 import com.css.model.User;
 import com.css.service.UserService;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import java.util.List;
  * @reviewer 审核人
  * @history 修订历史（历次修订内容、修订人、修订时间等）
  */
+
 @Service
 public class UserServiceImpl implements UserService {
     @Override
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @LoadBalanced
     public List<User> searchAllUser() {
         List<User> list = new ArrayList<>();
         list.add(new User(1001, "javazhou", 31, "湖北"));
